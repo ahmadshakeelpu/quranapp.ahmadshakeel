@@ -46,6 +46,53 @@ public class Para_List extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+ public ArrayList<String> getParaList() {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String Query = "Select * from " + AYAH_TABLE ;
+            Cursor cursor = db.rawQuery(Query, null);
+            ArrayList<String> rtn=new ArrayList<String>();
+            //english urdu ka chakr hai abhi
+            QDH qdh=new QDH();
+            ArrayList<String> paraName = new ArrayList<>();
+            paraName=qdh.GetParahNameEnglish();
+            int i=0;
+            /*if(!(cursor.getCount() <= 0)){
+                while(cursor.moveToNext()) {
+                    rtn.add(cursor.getString(10));
+                }
+            }*/
+            while(i<paraName.size())
+            {
+                rtn.add((i+1)+"   "+paraName.get(i));
+                i++;
+            }
+
+            cursor.close();
+            db.close();
+            return rtn;
+
+        }
+
+    public ArrayList<String> getPara(int paraId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = "Select \""+ARABIC_COLUMN+"\" from " + AYAH_TABLE+ " WHERE AyaId =0 or ParaID =" + paraId;
+
+        if(paraId==0)
+        {
+            Query = "Select \""+ARABIC_COLUMN+"\" from " + AYAH_TABLE+ " WHERE AyaId =0 or ParaID =" + paraId;
+        }
+        Cursor cursor = db.rawQuery(Query, null);
+        ArrayList<String> rtn=new ArrayList<String>();
+        if(!(cursor.getCount() <= 0)){
+            while(cursor.moveToNext()) {
+                rtn.add(cursor.getString(0));
+            }
+        }
+
+        cursor.close();
+        db.close();
+        return rtn;
+    }
 
     }
     @Override
