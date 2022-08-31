@@ -29,5 +29,15 @@ public class Surah {
         CustomAdapter adapter=new CustomAdapter(Surah.this, ayatmodelList);
         surahlist.setAdapter(adapter);
     }
+ Intent intent = new Intent(view1.this, view2.class);
+
+        if(getIntent().getStringExtra("type").equals("surah"))
+        {
+            displayData=db.getSurahList();
+        }
+        else if(getIntent().getStringExtra("type").equals("para"))
+        {
+            displayData=db.getParaList();
+        }
 
 }

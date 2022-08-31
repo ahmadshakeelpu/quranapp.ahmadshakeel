@@ -73,25 +73,25 @@ public class Para_List extends AppCompatActivity {
 
         }
 
-    public ArrayList<String> getPara(int paraId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String Query = "Select \""+ARABIC_COLUMN+"\" from " + AYAH_TABLE+ " WHERE AyaId =0 or ParaID =" + paraId;
+     case R.id.nav_book:
+                        Toast.makeText(getApplicationContext(), "Book is Clicked", Toast.LENGTH_LONG).show();
+                    case R.id.nav_surah:
+//                        Toast.makeText(getApplicationContext(), "Book is Clicked", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(MainActivity.this, view1.class);
+                        intent.putExtra("type","surah");
+                        startActivity(intent);
+                        //drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
 
-        if(paraId==0)
-        {
-            Query = "Select \""+ARABIC_COLUMN+"\" from " + AYAH_TABLE+ " WHERE AyaId =0 or ParaID =" + paraId;
-        }
-        Cursor cursor = db.rawQuery(Query, null);
-        ArrayList<String> rtn=new ArrayList<String>();
-        if(!(cursor.getCount() <= 0)){
-            while(cursor.moveToNext()) {
-                rtn.add(cursor.getString(0));
-            }
-        }
-
-        cursor.close();
-        db.close();
-        return rtn;
+                    case R.id.nav_return:
+                        Toast.makeText(getApplicationContext(), "Return is Clicked", Toast.LENGTH_LONG).show();
+                    case R.id.nav_parah:
+//                        Toast.makeText(getApplicationContext(), "Return is Clicked", Toast.LENGTH_LONG).show();
+                        intent = new Intent(MainActivity.this, view1.class);
+                        intent.putExtra("type","para");
+                        startActivity(intent);
+                        //drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
     }
 
     }
