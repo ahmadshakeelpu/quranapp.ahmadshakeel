@@ -68,6 +68,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 AyahList.add(new Ayaat_Model(AyahData.getInt(0), AyahData.getInt(1), AyahData.getInt(2), AyahData.getString(3), AyahData.getString(4), AyahData.getString(5), AyahData.getString(6), AyahData.getString(7), AyahData.getInt(8),AyahData.getInt(9),AyahData.getInt(10)));
             } while (AyahData.moveToNext());
         }
+    String Query = "Select Arabic Text from " + AYAH_TABLE+ "WHERE SuraID =" + suraId;
+            String Query = "Select \""+ARABIC_COLUMN+"\" from " + AYAH_TABLE+ " WHERE AyaId =0 or SuraID =" + suraId;
+            Cursor cursor = db.rawQuery(Query, null);
+            ArrayList<String> rtn=new ArrayList<String>();
+            if(!(cursor.getCount() <= 0)){
+                while(cursor.moveToNext()) {
+                    rtn.add(cursor.getString(0)+"    "+cursor.getString(2)+"    "+cursor.getString(4));
+                    rtn.add(cursor.getString(0));
+                }
+            }
         AyahData.close();
         return AyahList;
     }
